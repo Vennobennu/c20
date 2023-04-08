@@ -134,6 +134,9 @@ type_defs:
         type: float
       - name: easy_friend_recharge
         type: float
+        comments:
+          en: >
+            Also affects the speed of player shields' recharge.
       - name: normal_friend_recharge
         type: float
       - name: hard_friend_recharge
@@ -270,29 +273,32 @@ type_defs:
         size: 16
       - type: pad
         size: 16
-      - name: easy_major_upgrade
+      - name: easy_major_upgrade_normal
         type: float
-      - name: normal_major_upgrade
+        comments:
+          en: >
+            These settings correspond to the [major upgrade](~scenario#tag-field-encounters-squads-major-upgrade) fields in scenario data.
+      - name: normal_major_upgrade_normal
         type: float
-      - name: hard_major_upgrade
+      - name: hard_major_upgrade_normal
         type: float
-      - name: imposs_major_upgrade
+      - name: imposs_major_upgrade_normal
         type: float
-      - name: easy_major_upgrade_1
+      - name: easy_major_upgrade_few
         type: float
-      - name: normal_major_upgrade_1
+      - name: normal_major_upgrade_few
         type: float
-      - name: hard_major_upgrade_1
+      - name: hard_major_upgrade_few
         type: float
-      - name: imposs_major_upgrade_1
+      - name: imposs_major_upgrade_few
         type: float
-      - name: easy_major_upgrade_2
+      - name: easy_major_upgrade_many
         type: float
-      - name: normal_major_upgrade_2
+      - name: normal_major_upgrade_many
         type: float
-      - name: hard_major_upgrade_2
+      - name: hard_major_upgrade_many
         type: float
-      - name: imposs_major_upgrade_2
+      - name: imposs_major_upgrade_many
         type: float
       - type: pad
         size: 16
