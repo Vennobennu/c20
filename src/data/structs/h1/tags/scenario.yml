@@ -1079,11 +1079,25 @@ type_defs:
     bits:
       - name: not_initially_created
       - name: respawn_enabled
+        comments:
+          en: >
+            Enables squad-level [respawn settings](#tag-field-encounters-squads-respawn-min-actors).
       - name: initially_blind
       - name: initially_deaf
       - name: initially_braindead
+        comments:
+          en: >
+            Actors spawn with all behaviours disabled, to be enabled later [by a script](~h1/engine/scripting/#functions-ai-braindead).
       - name: 3d_firing_positions
+        comments:
+          en: >
+            Used for flying enemies like Banshees and Sentinels.
       - name: manual_bsp_index_specified
+        comments:
+          en: >
+            When disabled, the BSP this encounter belongs to will be automatically determined
+            by the game engine. This can fail if the encounter is located in geometry which
+            overlaps multiple BSPs. Use this flag in those cases.
   ScenarioTeamIndex:
     class: enum
     size: 2
@@ -1091,7 +1105,7 @@ type_defs:
       - name: default_by_unit
         comments:
           en: >
-            Uses the default team defined in the unit's biped tag.
+            Uses the default team defined in the units' biped tags.
       - name: player
       - name: human
       - name: covenant
@@ -1115,8 +1129,8 @@ type_defs:
       - name: none
         comments:
           en: >
-            Retain behaviour previously defined. Used for starting locations,
-            or empty squads meant for migration.
+            For squad-level definitions, actors will stand still and look forward.
+            For starting location definitions, retain behaviour defined at squad level.
       - name: sleeping
         comments:
           en: >
@@ -1125,16 +1139,29 @@ type_defs:
       - name: alert
         comments:
           en: >
-            Actors will stand still and look forward.
+            Actors will stand still with their weapon readied.
       - name: moving_repeat_same_position
         comments:
           en: >
+            Actors will move to the first move position matching their sequence ID and stay there.
             These and the following behaviours use [move positions](#tag-field-encounters-squads-move-positions) defined
-            in squad data to determine where to move. Use casual walking animations if applicable.
+            in squad data to determine where to move and use casual walking animations if applicable.
       - name: moving_loop
+        comments:
+          en: >
+            Move throug all positions in their sequence or sequence zero in order, then repeat.
       - name: moving_loop_back_and_forth
+        comments:
+          en: >
+            Move through all positions matching their sequence or sequence zero in order, then move in reverse order, then repeat.
       - name: moving_loop_randomly
+        comments:
+          en: >
+            Loop through positions that match their sequence ID, then loop through sequence zero a random number of times, then repeat.
       - name: moving_randomly
+        comments:
+          en: >
+            Randomly move between points within their sequence or sequence zero.
       - name: guarding
         comments:
           en: >
@@ -1219,18 +1246,31 @@ type_defs:
         type: Angle
       - name: weight
         type: float
+        comments:
+          en: >
+            For random move states, determines how likely this position
+            is to be chosen.
       - name: time
         type: Bounds
         meta:
           unit: seconds
         type_args:
           T: float
+        comments:
+          en: >
+            Actors will stand at this location for this amount of time
+            after reaching it.
       - name: animation
         type: Index
         meta:
           index_of: ai animation references
       - name: sequence_id
         type: int8
+        comments:
+          en: >
+            Corresponds to sequence ID in starting location data. Actors
+            will use movement positions that match their own sequence ID,
+            ebut positions in sequence zero are always available.
       - type: pad
         size: 1
       - type: pad
@@ -1252,6 +1292,10 @@ type_defs:
     size: 1
     bits:
       - name: required
+        comments:
+          en: >
+            Spawning will select all locations with this flag
+            before selecting any locations without it.
   ScenarioActorStartingLocation:
     class: struct
     assert_size: 28
@@ -1267,12 +1311,21 @@ type_defs:
         endianness: little
       - name: sequence_id
         type: int8
+        comments:
+          en: >
+            Used for 'moving' state types. See [movement positions](#tag-field-encounters-squads-move-positions).
       - name: flags
         type: ScenarioActorStartingLocationFlags
       - name: return_state
         type: ScenarioReturnState
+        comments:
+          en: >
+            If not 'none', overrides squad-level return state for this location.
       - name: initial_state
         type: ScenarioReturnState
+        comments:
+          en: >
+            If not 'none', overrides squad-level initial state for this location.
       - name: actor_type
         type: Index
         meta:
@@ -1281,6 +1334,9 @@ type_defs:
         type: Index
         meta:
           index_of: command lists
+        comments:
+          en: >
+            Command list to execute upon loading.
   ScenarioSquad:
     class: struct
     assert_size: 232
@@ -1406,7 +1462,9 @@ type_defs:
           hek_max_count: 64
         comments:
           en: >
-            Used for actor initial and return states, eg as patrol routes.
+            Used for actor initial and return states, eg as patrol routes. Excepting Random movement,
+            actors move through positions in the order they appear in scenario data; the first movement
+            position an actor moves to is the first that matches their sequence ID.
       - name: starting_locations
         type: Block
         type_args:
@@ -1431,13 +1489,13 @@ type_defs:
     size: 2
     options:
       - name: never
-      - name: 75_strength
-      - name: 50_strength
-      - name: 25_strength
+      - name: '< 75%_strength'
+      - name: '< 50%_strength'
+      - name: '< 25%_strength'
       - name: anybody_dead
-      - name: 25_dead
-      - name: 50_dead
-      - name: 75_dead
+      - name: '25%_dead'
+      - name: '50%_dead'
+      - name: '75%_dead'
       - name: all_but_one_dead
       - name: all_dead
     comments:
@@ -1551,6 +1609,10 @@ type_defs:
         type: Index
         meta:
           index_of: structure bsps
+        comments:
+          en: >
+            When 'manual BSP index specified' is set, determines
+            which BSP this encounter belongs to.
       - name: respawn_delay
         type: Bounds
         meta:
