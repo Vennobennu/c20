@@ -492,6 +492,9 @@ type_defs:
       - name: only_when_zoomed
       - name: connect_to_flashlight
       - name: masked
+        comments:
+          en: >
+            Only applies to the area covered by the mask bitmap.
   WeaponHUDInterfaceScreenEffectDefinitionDesaturationFlags:
     class: bitfield
     size: 2
@@ -499,7 +502,14 @@ type_defs:
       - name: only_when_zoomed
       - name: connect_to_flashlight
       - name: additive
+        comments:
+          en: >
+            When on, combines tint colour with the physical colour
+            to create final tint. When off, sets hue to the tint value.
       - name: masked
+        comments:
+          en: >
+            Only applies to the area covered by the mask bitmap.
   WeaponHUDInterfaceScreenEffect:
     class: struct
     assert_size: 184
