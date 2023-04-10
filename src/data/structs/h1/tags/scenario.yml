@@ -1149,7 +1149,7 @@ type_defs:
       - name: moving_loop
         comments:
           en: >
-            Move throug all positions in their sequence or sequence zero in order, then repeat.
+            Move through all positions in their sequence or sequence zero in order, then repeat.
       - name: moving_loop_back_and_forth
         comments:
           en: >
@@ -1482,7 +1482,13 @@ type_defs:
     size: 4
     bits:
       - name: flee_when_maneuvering
+        comments:
+          en: >
+            Use fleeing animations when maneuvering.
       - name: say_advancing_when_maneuver
+        comments:
+          en: >
+            Speak advancing lines when manuevering instead of retreating ones.
       - name: start_in_defending_state
   ScenarioChangeAttackingDefendingStateWhen:
     class: enum
@@ -1498,10 +1504,6 @@ type_defs:
       - name: '75%_dead'
       - name: all_but_one_dead
       - name: all_dead
-    comments:
-      en: >
-        Strength is the fraction of total HP across all members
-        of the platoon.
   ScenarioPlatoon:
     class: struct
     assert_size: 172
@@ -1514,6 +1516,10 @@ type_defs:
         size: 12
       - name: change_attacking_defending_state_when
         type: ScenarioChangeAttackingDefendingStateWhen
+        comments:
+          en: >
+            Strength is the fraction of total HP across all members
+            of the platoon.
       - name: happens_to
         type: Index
         meta:
