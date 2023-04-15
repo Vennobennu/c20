@@ -531,7 +531,7 @@ functions:
         ```hsc
         (<void> ai_grenades <boolean>)
         ```
-        Turns grenade inventory on or off
+        Turns grenade inventory and usage on or off for all AIs.
   - slug: ai_is_attacking
     info:
       en: >-
@@ -701,7 +701,8 @@ functions:
         ```hsc
         (<void> ai_playfight <ai> <boolean>)
         ```
-        Sets an encounter to be playfighting or not
+        Sets the playfighting state of a group of AI. Playfighting AIs have their
+        accuracy, rate of fire, and damage dealt drastically reduced.
   - slug: ai_prefer_target
     info:
       en: >-
@@ -1969,7 +1970,7 @@ functions:
         ```
 
         Returns false if it would be a bad idea to save the player's game right
-        now
+        now (eg nearby enemies, extant projectiles, player is airborne)
   - slug: game_safe_to_speak
     info:
       en: >-
