@@ -314,7 +314,8 @@ operators_and_keywords:
       (sleep <short> [<script>])
       ```
       Pauses execution of this script (or, optionally, another script) for
-      the specified number of ticks (1 tick = 1/30 second)
+      the specified number of ticks (1 tick = 1/30 second). `sleep -1` will
+      pause execution indefinitely.
     ex: |
       ```hsc
       (sleep 30 more_weapons)
